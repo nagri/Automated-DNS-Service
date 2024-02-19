@@ -22,6 +22,7 @@ If the HostedZone does not exists then
 - Create the Alias
 
 # How to Run 
+go version used `go version go1.20.6 darwin/amd64`
 
 set AWS Env variables
 
@@ -37,7 +38,7 @@ then run with
 go run main.go
 ```
 
-The will spin up a log running process that checks the AWS LB every 5 minutes. If there exists an LB that has a tag `automated-dns` with its value set to `domain.extention`.
+This will spin up a log running process that scans the AWS LB every 1 minutes. If there exists an LB that has a tag `automated-dns` with its value set to `domain.extention`;
 
 This process will create a HostedZone if it does not exist.
 It will then create an Alias in the HostedZone and add few tags in the HostedZone to identify if its being managed by this Automated-DNS service. 

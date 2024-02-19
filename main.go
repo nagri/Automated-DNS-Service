@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-
 	for {
 
 		LbsToManage, err := awslb.ScanAWSLB()
@@ -29,6 +28,7 @@ func main() {
 			}
 		}
 
-		time.Sleep(time.Second * 300)
+		fmt.Println("============Sleeping for 60 seconds============")
+		time.Sleep(60 * time.Second)
 	}
 }
