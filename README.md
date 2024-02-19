@@ -14,7 +14,7 @@ Once it identifies the LB it will then check if there is an existing route53 ent
 
 ## If the HostedZone exists already
   - check if the Alias exists
-  - - if yes then we dont want to mess up the DNS and the service wont make any changes
+  - - if yes then we don't want to mess up the DNS and the service wont make any changes
   - - if no then we'll create an Alias and add a tag to identify later that we created the Alias
 
 If the HostedZone does not exists then
@@ -30,3 +30,22 @@ export AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
 export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
 export AWS_DEFAULT_REGION=<AWS_DEFAULT_REGION>
 ```
+
+change directory to where the `main.go` file resides.
+then run with
+```
+go run main.go
+```
+
+The will spin up a log running process that checks the AWS LB every 5 minutes. If there exists an LB that has a tag `automated-dns` with its value set to `domain.extention`.
+
+This process will create a HostedZone if it does not exist.
+It will then create an Alias in the HostedZone and add few tags in the HostedZone to identify if its being managed by this Automated-DNS service. 
+
+If you change the tag value on an existing LB, from `domain.extention` to `svc.domain.extention` the Automated-DNS service will pick up the change and update the HostedZone as well.
+
+A lot of corner cases are not implemented.
+1. If the LB is deleted then, the Automated-DNS service should identify it and delete the relevent entries/HostedZone from Route53
+2. If the automated-dns Value is changed Altogether `domain.extention` to `anotherdomain.ext` then the service should delete the older hostedZone and recreate the new HostedZone.
+3. Have not implemented test cases due to time crunch. 
+
