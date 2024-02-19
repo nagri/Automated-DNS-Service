@@ -20,3 +20,13 @@ Once it identifies the LB it will then check if there is an existing route53 ent
 If the HostedZone does not exists then
 - Create the HostedZone and tag it.
 - Create the Alias
+
+# How to Run 
+
+set AWS Env variables
+
+```
+export AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
+export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
+export AWS_DEFAULT_REGION=<AWS_DEFAULT_REGION>
+```
